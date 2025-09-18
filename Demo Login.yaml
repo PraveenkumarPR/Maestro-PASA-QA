@@ -1,0 +1,73 @@
+appId: com.leadschool.devparentapp
+---
+- startRecording: recording
+
+- launchApp:
+    appId: com.leadschool.devparentapp
+    clearState: true
+    clearKeychain: true # optional: clear *entire* iOS keychain
+    stopApp: false # optional (true by default): stop the app before launching it
+    permissions:
+      { all: deny } # optional: by default all permissions are allowed,
+      # even if clearState: true is passed
+
+#white/blue screen
+- waitForAnimationToEnd:
+    timeout: 30000
+
+- assertVisible:
+    id: permission_allow_button
+    optional: true
+- tapOn:
+    id: permission_allow_button
+    optional: true
+
+##Login flow
+
+- assertVisible:
+    text: Continue
+    optional: true
+
+- tapOn: ^Enter phone No.*
+- inputText: '7200000365'
+- tapOn: Continue
+- tapOn: Login via Password
+- tapOn: 'Enter Password.*'
+- inputText: 'MyByPass'
+- tapOn: Continue
+
+#Student selection
+- assertVisible:
+    id: Who’s Learning?
+    optional: true
+- assertVisible:
+    id: Switch Profile
+    optional: true
+- tapOn: James Jones.*
+
+##Onbaording flow
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    visible: 'Yes! I can see it'
+    timeout: 30000
+    optional: true
+
+- runFlow:
+    when:
+      visible: 'Yes! I can see it' # Check if the element is visible
+    commands:
+      - back
+      - tapOn:
+          text: 'No.*'
+      - back
+      - tapOn:
+          text: 'Yes.*'
+
+- runFlow:
+    when:
+      notVisible: 'Yes! I can see it' # If the element is not visible, execute these commands
+    commands:
+      - tapOn:
+          text: Home
+
+- stopRecording
