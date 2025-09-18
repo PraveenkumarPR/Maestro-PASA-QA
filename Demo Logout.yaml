@@ -1,0 +1,9 @@
+appId: com.leadschool.devparentapp
+---
+#Logout flow
+
+- tapOn: Menu
+- scroll
+- tapOn: ^Settings
+- tapOn: Log Out
+- tapOn: Yes.*
