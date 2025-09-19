@@ -1,0 +1,17 @@
+appId: com.leadschool.devparentapp
+---
+- tapOn: Science
+- tapOn: Activate Now
+- tapOn: Scan Now
+
+- assertVisible:
+    id: Allow Student App to take pictures and record video?
+    optional: true
+- tapOn:
+    id: permission_allow_foreground_only_button
+    optional: true
+
+- tapOn: Type in the Access Code
+- tapOn: Enter Access Code
+- inputText: 7BD23ADA6961AEFB
+- tapOn: Submit
